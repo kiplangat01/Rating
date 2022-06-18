@@ -105,7 +105,7 @@
             <img style="height: 300px;" class="card-img-top" src="{{ post.image.url }}" alt="{{post.title}}">
           </div>
           <div class="card-body">
-            <h4  class="card-title text-center"><a href="#">{{post.title|title}}</a></h4>
+            <h4  class="card-title text-center"><a href="post.url">{{post.title|title}}</a></h4>
             {% for rating in post.ratings.all %}
             {% if forloop.counter is post.ratings.all.count %}
             <div class="row d-flex justify-content-center">
