@@ -20,17 +20,17 @@
             {% for rating in random_post.ratings.all %}
             {% if forloop.counter is random_post.ratings.all.count %}
             <div style="height: 4rem;" class="row d-flex justify-content-center">
-              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.design_average}}">
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill m-3 text-center rating" data-note="{{rating.design_average}}">
                 <h6 style="margin-top: 0.6rem;" >DESIGN</h6>
                 <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.design_average}}</p>
               </div>
 
-              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" style="margin-left: 1rem; margin-right: 1rem;height: 4rem;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.usability_average}}">
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" style="margin-left: 1rem; margin-right: 1rem;height: 4rem;" class="col-2 border m-3 rounded-pill text-center rating" data-note="{{rating.usability_average}}">
                 <h6 style="margin-top: 0.6rem;">USABILITY</h6>
                 <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.usability_average}}</p>
               </div>
 
-              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.content_average}}">
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill m-3 text-center rating" data-note="{{rating.content_average}}">
                 <h6 style="margin-top: 0.6rem;">CONTENT</h6>
                 <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.content_average}}</p>
               </div>
@@ -38,7 +38,7 @@
             <br>
 
             <div  class="row d-flex justify-content-center" data-note="{{ rating.score }}">
-              <div  style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating">
+              <div  style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill m-3 text-center rating">
                 <h5 style="margin-top: 0.6rem;">SCORE</h5>
                 <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.score}}</p>
               </div>
@@ -134,7 +134,7 @@
             </div>
             <hr>
             <p class="card-text ">
-              
+              <img class="rounded-circle account-image" src="{{ user.profile.picture.url }}" alt="" height="50px" width="60px">
               By {{post.user.username|title}} 
               
               <small style="float:right" class="text-muted">{{post.date_posted|date}}</small>
