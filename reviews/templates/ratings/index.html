@@ -1,0 +1,149 @@
+{% extends 'ratings/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br><br>
+<div class="row no-gutters d-flex justify-content-center">
+  <div class="col-11 card text-white main-card text-center">
+    <img class="main-image cover"  src="{{ random_post.image.url }}" class="card-img" alt="Random" style="height: 500px;">
+    <div class="card-img-overlay">
+      <div data-model="{&quot;likes&quot;:55,&quot;id&quot;:38186,&quot;images&quot;:{&quot;thumbnail&quot;:&quot;submissions\/2019\/10\/5da42f4e8967d075754281.jpg&quot;},&quot;slug&quot;:&quot;laguta-laguta&quot;,&quot;title&quot;:&quot;Laguta &amp; Laguta&quot;,&quot;createdAt&quot;:1571616000,&quot;tags&quot;:[&quot;Design Agencies&quot;,&quot;Mobile &amp; Apps&quot;,&quot;Web &amp; Interactive&quot;,&quot;Flat Design&quot;,&quot;Minimal&quot;,&quot;Portfolio&quot;,&quot;Responsive Design&quot;,&quot;Black&quot;,&quot;Red&quot;,&quot;White&quot;,&quot;Gallery&quot;,&quot;GSAP Animation&quot;,&quot;UI design&quot;,&quot;Nuxt.js&quot;],&quot;type&quot;:&quot;submission&quot;}">      
+        <div>
+          <br><br><br>
+          <div style="justify-content:center ;" class="row mx-auto text-center">
+            <h2 class=""><strong>
+              <a href="{% url 'project' random_post.id %}" style="margin-top:-100px; ">{{ random_post.title }}</a>
+            </strong></h2>
+          </div>
+          <br>
+          <div>
+            {% for rating in random_post.ratings.all %}
+            {% if forloop.counter is random_post.ratings.all.count %}
+            <div style="height: 4rem;" class="row d-flex justify-content-center">
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.design_average}}">
+                <h6 style="margin-top: 0.6rem;" >DESIGN</h6>
+                <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.design_average}}</p>
+              </div>
+
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" style="margin-left: 1rem; margin-right: 1rem;height: 4rem;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.usability_average}}">
+                <h6 style="margin-top: 0.6rem;">USABILITY</h6>
+                <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.usability_average}}</p>
+              </div>
+
+              <div style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating" data-note="{{rating.content_average}}">
+                <h6 style="margin-top: 0.6rem;">CONTENT</h6>
+                <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.content_average}}</p>
+              </div>
+            </div>
+            <br>
+
+            <div  class="row d-flex justify-content-center" data-note="{{ rating.score }}">
+              <div  style="border-radius: 70px; background-color: black; opacity: 0.5;" class="col-2 border rounded-pill text-center rating">
+                <h5 style="margin-top: 0.6rem;">SCORE</h5>
+                <p style="margin-top: -0.6rem;" class="d-block mx-auto textrate">{{rating.score}}</p>
+              </div>
+            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <div>
+          <h6>
+            by <strong><a style="color: rgb(245, 245, 245); background-color: black; padding: 5px; opacity: 0.5; border-radius: 13px;" href="">{{ random_post.user.username }}</a></strong>
+          </h6>
+            <small style="color: rgb(255, 255, 255);"><span>on {{random_post.date_posted|date}}</span></small>
+        </div>
+        <div>
+          <a style="font-size:  30px;"  href="{{random_post.url}}" data-identifier="" data-type="submission" target="_blank" rel="noopener nofollow"
+            >View Project
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center container-fluid banner">
+  <br><br><br>
+  
+
+  <button class="form-button text-center btn btn-info btn-md" data-toggle="modal" data-target=".bd-example-modal-xl">Post a Project</butoon>
+</div>
+
+
+<div class="container-fluid" style="margin-top:3%;">
+  <h2 class="text-center">Posted Projects</h2>
+  {% if user.is_authenticated %}
+  <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Post project</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" role="form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" name="action" class="btn btn-sm btn-info">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row no-gutters">
+    {% if posts %}
+      {% for post in posts %}
+      <div class="col-lg-4 col-md-6 col-sm-10">
+        <div class="card" style="margin: 1rem;">
+          <div>
+            <img style="height: 300px;" class="card-img-top" src="{{ post.image.url }}" alt="{{post.title}}">
+          </div>
+          <div class="card-body">
+            <h4  class="card-title text-center"><a href="{% url 'project' post.title %}">{{post.title|title}}</a></h4>
+            {% for rating in post.ratings.all %}
+            {% if forloop.counter is post.ratings.all.count %}
+            <div class="row d-flex justify-content-center">
+              <div style="height: 3rem;" class="col-3 border rounded-pill text-center">
+                <small><strong><p style="margin-top: 0.4rem;">Design</p></strong></small>
+                <small><p style="margin-top: -1rem;" class="d-block mx-auto textrate">{{rating.design_average}}</p></small>
+              </div>
+  
+              <div style="height: 3rem; margin-left: 0.5rem; margin-right: 0.5rem;" class="col-3 border rounded-pill text-center">
+                <small><strong><p style="margin-top: 0.4rem;">Usability</p></strong></small>
+                <small><p style="margin-top: -1rem;" class="d-block mx-auto textrate">{{rating.usability_average}}</p></small>
+              </div>
+  
+              <div style="height: 3rem;" class="col-3 border rounded-pill text-center">
+                <small><strong><p style="margin-top: 0.4rem;">Content</p></strong></small>
+                <small><p style="margin-top: -1rem;" class="d-block mx-auto textrate">{{rating.content_average}}</p></small>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="text-center">
+              <p>{{post.description | truncatechars:100}}</p>
+              
+              <p style="color: rgb(70, 0, 53);">tech used: {{post.technologies}}</p>
+              <a class="btn btn-sm btn-outline-info" href="{% url 'project' post.id %}">Rate This project</a>
+            </div>
+            <hr>
+            <p class="card-text ">
+              
+              By {{post.user.username|title}} 
+              
+              <small style="float:right" class="text-muted">{{post.date_posted|date}}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

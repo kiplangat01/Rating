@@ -1,0 +1,41 @@
+{% extends "ratings/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %} 
+
+<style>
+    .content_section{
+        width: 600px;
+        align-items: center;
+        background-color: white;
+        border-radius: 30px;
+        justify-content: center;
+        align-items: center;
+        /* float: right; */
+        border: 1px solid rgb(66, 59, 59);
+        margin: 50px;
+        padding: 50px;
+
+    }
+    
+</style>
+
+
+<div class="content_section">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+             <legend class="border-bottom mb-4">
+                 Join today
+             </legend>
+             {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+           <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+    </form>
+    <div class="border-top pt=3"></div>
+    <small class="text-muted">Already Have An Account? login here <a class="ml-2" href="{% url 'login' %}">Sign In</a></small>
+</div>
+{% endblock content %}
+
+    
