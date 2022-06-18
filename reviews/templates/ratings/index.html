@@ -129,7 +129,7 @@
             <div class="text-center">
               <p>{{post.description | truncatechars:100}}</p>
               
-              <p style="color: rgb(70, 0, 53);">tech used: {{post.technologies}}</p>
+              <p style="color: rgb(70, 0, 53); font-family: Lobster;">tech used: {{post.technologies}}</p>
               <a class="btn btn-sm btn-outline-info" href="{% url 'project' post.id %}">Rate This project</a>
             </div>
             <hr>
